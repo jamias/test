@@ -16,7 +16,7 @@
 
 		<script>
 			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
 			var controls = new THREE.OrbitControls( camera );
 
@@ -44,7 +44,7 @@
 			
 				OBJLoaded = object;
 
-				object.scale.set(.75,.75,.75);
+				object.scale.set(.5,.5,.5);
 
 				//var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 				//var Fbx = new THREE.Mesh( object, materialFbx );
@@ -64,7 +64,7 @@
 
   				} );
 
-  				scene.add( OBJLoaded );
+  				scene.add( object );
 
 			} );
 
