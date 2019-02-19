@@ -38,7 +38,8 @@
 			var loader = new THREE.FBXLoader();
 			loader.load( 'models/World_JJ_02.fbx', function ( object ) {
 			
-
+				OBJLoaded = object;
+				
 				//var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 				//var Fbx = new THREE.Mesh( object, materialFbx );
 
@@ -86,7 +87,7 @@
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
 
-				loader.object.child.rotation.x += 0.01;
+				OBJLoaded.rotation.x += 0.01;
 
 				renderer.render( scene, camera );
 			};
