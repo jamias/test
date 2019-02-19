@@ -20,7 +20,7 @@
 
 			var controls = new THREE.OrbitControls( camera );
 
-			scene.background = new THREE.Color( 0xa0a0a0 );
+			scene.background = new THREE.Color( 0x222222 );
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
 
 			var OBJLoaded;
@@ -57,7 +57,7 @@
 						const oldMat = child.material;
 
        					child.material = new THREE.MeshLambertMaterial( {  
-       						color: 0x00ff00, scale.set: (.5,.5,.5)
+       						color: 0xffcc00, scale.set: (.5,.5,.5)
 						} );
 
     				}
@@ -93,7 +93,11 @@
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
 
-				OBJLoaded.rotation.y += 0.0025;
+				 if (OBJLoaded) 
+			    { 
+			        OBJLoaded.rotation.y += 0.0025;
+			    }
+				
 
 				controls.update();
 
