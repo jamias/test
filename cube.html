@@ -46,8 +46,9 @@
 				OBJLoaded = object;
 
 				
+				object.scale.setSize(.5,.5,.5);
 
-				//var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+				var materialFbx = new THREE.MeshBasicMaterial( { color: 0xffcc00 } );
 				//var Fbx = new THREE.Mesh( object, materialFbx );
 
 				object.traverse( function ( child ) {
@@ -55,11 +56,9 @@
 						child.castShadow = true;
 						child.receiveShadow = true;
 
-						const oldMat = child.material;
+						//const oldMat = child.material;
 
-       					child.material = new THREE.MeshLambertMaterial( {  
-       						color: 0xffcc00, scale: Vector3(.5,.5,.5)
-						} );
+       					child.material = materialFbx; 
 
     				}
 
