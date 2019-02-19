@@ -15,7 +15,7 @@
 
 		<script>
 			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
 			scene.background = new THREE.Color( 0xa0a0a0 );
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
@@ -59,7 +59,7 @@
 
   				} );
 
-  				scene.add( object );
+  				scene.add( OBJLoaded );
 
 			} );
 
@@ -88,7 +88,7 @@
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
 
-				OBJLoaded.rotation.x += 0.01;
+				OBJLoaded.rotation.y += 0.0025;
 
 				renderer.render( scene, camera );
 			};
