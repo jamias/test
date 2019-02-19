@@ -43,6 +43,10 @@
 			var loader = new THREE.FBXLoader();
 			loader.load( 'models/World_JJ_02.fbx', function ( object ) {
 			
+
+				var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+				var Fbx = new THREE.Mesh( object, materialFbx );
+
 				object.traverse( function ( child ) {
 						if ( child.isMesh ) {
 							child.castShadow = true;
@@ -50,8 +54,7 @@
 						}
 					} );
 
-					var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-					var Fbx = new THREE.Mesh( object, materialFbx );
+					
 
 					scene.add( Fbx );
 				} );
@@ -78,7 +81,7 @@
 			camera.position.z = 5;
 
 			var animate = function () {
-				requestAnimationFrame( animate );
+				//requestAnimationFrame( animate );
 
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
