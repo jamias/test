@@ -48,7 +48,7 @@
 				
 				
 
-				//var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+				var materialFbx = new THREE.MeshBasicMaterial( { color: 0xfccf00 } );
 				//var Fbx = new THREE.Mesh( object, materialFbx );
 
 				object.traverse( function ( child ) {
@@ -58,9 +58,11 @@
 
 						const oldMat = child.material;
 
-       					child.material = new THREE.MeshLambertMaterial( {  
+       					child.material = materialFbx;
+
+       					/*new THREE.MeshLambertMaterial( {  
        						color: 0xffcc00
-						} );
+						} );*/
 
 						//child.mesh.scale.set(.5, .5, .5); 
 
