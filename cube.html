@@ -22,12 +22,7 @@
 
 
 
-			var grid = new THREE.GridHelper( 2000, 20, 0x000000, 0x000000 );
-				grid.material.opacity = 0.2;
-				grid.material.transparent = true;
-				scene.add( grid );
-
-		
+	
 			// ground
 				var meshGround = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), new THREE.MeshPhongMaterial( { color: 0x999999, depthWrite: false } ) );
 				meshGround.rotation.x = - Math.PI / 2;
@@ -81,7 +76,7 @@
 			camera.position.z = 5;
 
 			var animate = function () {
-				//requestAnimationFrame( animate );
+				requestAnimationFrame( animate );
 
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
