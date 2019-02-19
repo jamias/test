@@ -19,6 +19,7 @@
 			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
 			var controls = new THREE.OrbitControls( camera );
+			controls.enableDamping = true;
 
 			scene.background = new THREE.Color( 0x222222 );
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
