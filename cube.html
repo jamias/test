@@ -52,9 +52,8 @@
 				//var Fbx = new THREE.Mesh( object, materialFbx );
 
 				object.traverse( function ( child ) {
-					if ( child.isMesh ) {
-						child.castShadow = true;
-						child.receiveShadow = true;
+					if ( child instanceof THREE.Mesh ) {
+						
 
 						//const oldMat = child.material;
 
