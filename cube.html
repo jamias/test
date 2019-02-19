@@ -21,8 +21,15 @@
 				grid.material.transparent = true;
 				scene.add( grid );
 
-			const Zlib = require("js/libs/inflate.min.js").Zlib;
+			const Zlib = require("js/libs/inflate.min").Zlib;
 			window.Zlib = Zlib;
+
+/*
+			const Zlib = require("three/examples/js/libs/inflate.min");
+			window.Zlib = Zlib.Zlib;
+			const FBXLoader = require("three/examples/js/loaders/FBXLoader");
+			window.FBXLoader = FBXLoader;*/
+
 			
 			var loader = new THREE.FBXLoader();
 			loader.load( 'models/World_JJ_02.fbx', function ( object ) {
