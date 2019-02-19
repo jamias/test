@@ -11,6 +11,7 @@
 
 		
 		<script src="js/loaders/FBXLoader.js"></script>
+		<script src="js/libs/inflate.min.js"></script>
 
 		<script>
 			var scene = new THREE.Scene();
@@ -21,8 +22,8 @@
 				grid.material.transparent = true;
 				scene.add( grid );
 
-			const Zlib = require("js/libs/inflate.min").Zlib;
-			window.Zlib = Zlib;
+			/*const Zlib = require("js/libs/inflate.min").Zlib;
+			window.Zlib = Zlib;*/
 
 /*
 			const Zlib = require("three/examples/js/libs/inflate.min");
