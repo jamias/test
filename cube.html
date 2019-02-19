@@ -41,7 +41,11 @@
 							child.receiveShadow = true;
 						}
 					} );
-					scene.add( object );
+
+					var materialFbx = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+					var Fbx = new THREE.Mesh( object, materialFbx );
+
+					scene.add( Fbx );
 				} );
 
 
