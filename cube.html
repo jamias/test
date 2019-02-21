@@ -26,27 +26,13 @@
 
 			var OBJLoaded;
 
-
-	/*
-			// ground
-				var meshGround = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), new THREE.MeshPhongMaterial( { color: 0x999999, depthWrite: false } ) );
-				meshGround.rotation.x = - Math.PI / 2;
-				meshGround.receiveShadow = true;
-				scene.add( meshGround );
-
-				var grid = new THREE.GridHelper( 2000, 20, 0x000000, 0x000000 );
-				grid.material.opacity = 0.2;
-				grid.material.transparent = true;
-				scene.add( grid );
-*/
-			
 			
 			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshBasicMaterial( { color: 0x666666} );
 
 			var loadIndex = 0;
 
-			var files = ['models/World_JJ_02.fbx','triangleFaces.fbx'];
+			var files = ['models/World_JJ_02.fbx','TriangleFaces.fbx'];
 			var mats = [matWorld, matTriangle]
 
 			var loader = new THREE.FBXLoader();
