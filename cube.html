@@ -28,12 +28,14 @@
 
 			
 			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
-			var matTriangle = new THREE.MeshBasicMaterial( { color: 0x666666} );
+			var matTriangle = new THREE.MeshBasicMaterial( { color: 0xffffff} );
 
 			var loadIndex = 0;
+			var animIndex = 0;
 
 			var files = ['models/World_JJ_02.fbx','models/TriangleFaces.fbx'];
-			var mats = [matWorld, matTriangle]
+			var mats = [matWorld, matTriangle];
+			var loadedObjs =[];
 
 			var loader = new THREE.FBXLoader();
 
@@ -44,7 +46,7 @@
 
 			  loader.load(files[loadIndex], function(object) {
 
-			  	OBJLoaded = object;
+			  	loadedObjs[loadIndex] = object;
 
 			  	object.scale.set(.3, .3, .3);
 
@@ -53,9 +55,7 @@
 						child.castShadow = true;
 						child.receiveShadow = true;
 
-						const oldMat = child.material;
-
-       					child.material = mats[loadIndex];
+						child.material = mats[loadIndex];
        					
     				}
 
@@ -90,31 +90,29 @@
 
 			scene.add( cube );
 
-
-
-			
-
-
-
-
 			camera.position.z = 5;
+
 
 			var animate = function () {
 				requestAnimationFrame( animate );
 
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
-
-				 if (OBJLoaded) 
-			    { 
-			        OBJLoaded.rotation.y += 0.0025;
-			    }
 				
+				var i;
 
+				if (loadedObjs){
+					for (i = 0; i < loadedObjs.length; i++){
+			  			loadedObjs[i].rotation.y += 0.0025;
+			  		}
+			  	}
+			   
 				controls.update();
 
 				renderer.render( scene, camera );
 			};
+
+
 
 			animate();
 		</script>
