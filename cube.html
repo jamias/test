@@ -40,43 +40,56 @@
 				scene.add( grid );
 */
 			
-			var loader = new THREE.FBXLoader();
-			loader.load( 'models/World_JJ_02.fbx', function ( object ) {
 			
-				OBJLoaded = object;
+			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
+			var matTriangle = new THREE.MeshBasicMaterial( { color: 0x666666} );
 
-				object.scale.set(.3, .3, .3);
-				
-				var materialFbx = new THREE.MeshBasicMaterial( { color: 0xfccf00} );
+			var loadIndex = 0;
+
+			var files = ['models/World_JJ_02.fbx','triangleFaces.fbx'];
+			var mats = [matWorld, matTriangle]
+
+			var loader = new THREE.FBXLoader();
 
 
+			function loadNextFile() {
 
-				//var Fbx = new THREE.Mesh( object, materialFbx );
+			  if (loadIndex > files.length - 1) return;
 
-				object.traverse( function ( child ) {
+			  objLoader.load(files[loadIndex], function(object) {
+
+			  	OBJLoaded = object;
+
+			  	object.scale.set(.3, .3, .3);
+
+			  	object.traverse( function ( child ) {
 					if ( child.isMesh ) {
 						child.castShadow = true;
 						child.receiveShadow = true;
 
 						const oldMat = child.material;
 
-       					child.material = materialFbx;
-
-       					/*new THREE.MeshLambertMaterial( {  
-       						color: 0xffcc00
-						} );*/
-
-
+       					child.material = mats[loadIndex];
        					
     				}
 
   				} );
 
-  				object.scale.set(.5, .5, .5);
+			    scene.add(object);
 
-  				scene.add( object );
+			    loadIndex++;
+			    loadNextFile();
 
-			} );
+			  });
+
+			}
+
+			loadNextFile();
+
+
+
+
+
 
 
 			var renderer = new THREE.WebGLRenderer();
