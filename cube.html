@@ -28,7 +28,7 @@
 
 			
 			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
-			var matTriangle = new THREE.MeshBasicMaterial( { color: 0xffffff} );
+			var matTriangle = new THREE.MeshBasicMaterial( { color: 0x333333} );
 
 			var loadIndex = 0;
 			var animIndex = 0;
@@ -54,9 +54,7 @@
 					if ( child.isMesh ) {
 						child.castShadow = true;
 						child.receiveShadow = true;
-
 						child.material = mats[loadIndex];
-       					
     				}
 
   				} );
