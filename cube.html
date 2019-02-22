@@ -20,7 +20,7 @@
 
 			var group = new THREE.Group();
 
-			var controls = new THREE.OrbitControls( camera );
+			var controls = new THREE.OrbitControls( group );
 			controls.enableDamping = true;
 
 			scene.background = new THREE.Color( 0x222222 );
@@ -79,6 +79,7 @@
   				} );
 
 			    //scene.add(object);
+			    group.add( object);
 
 			    loadIndex++;
 			    loadNextFile();
@@ -109,9 +110,9 @@
 
 			
 			group.add( cube );
-			group.add( loadedObjs[0] );
-			group.add( loadedObjs[1] );
-			group.add( loadedObjs[2] );
+			//group.add( loadedObjs[0] );
+			//group.add( loadedObjs[1] );
+			//group.add( loadedObjs[2] );
 
 			scene.add( group );
 
