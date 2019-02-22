@@ -24,6 +24,13 @@
 			scene.background = new THREE.Color( 0x222222 );
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
 
+
+			var light = new THREE.PointLight( 0xffcc00, 1, 100 );
+			light.position.set( 500, 50, 50 );
+			scene.add( light );
+
+
+
 			var OBJLoaded;
 
 			
