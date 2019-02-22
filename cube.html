@@ -28,7 +28,8 @@
 
 
 			var light = new THREE.PointLight( 0xffcc00, 1, 100 );
-			light.position.set( -200, 0, 0 );
+			//light.position.set( -200, 0, 0 );
+			light.position.copy(camera.position);
 			
 			scene.add( light );
 
