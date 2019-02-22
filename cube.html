@@ -29,12 +29,13 @@
 			
 			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshBasicMaterial( { color: 0x333333} );
+			var matdisp = new THREE.MeshBasicMaterial( { color: 0x111111} );
 
 			var loadIndex = 0;
 			var animIndex = 0;
 
-			var files = ['models/World_JJ_02.fbx','models/geodesic.fbx'];
-			var mats = [matWorld, matTriangle];
+			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx', 'models/geodesic.fbx'];
+			var mats = [matWorld, matdisp, matTriangle];
 			var loadedObjs =[];
 
 			var loader = new THREE.FBXLoader();
@@ -50,7 +51,7 @@
 
 			  	
 
-			  	if (loadIndex == 1){
+			  	if (loadIndex == 2){
 			  		object.scale.set(.18, .18, .18);
 			  	} else{
 
@@ -108,7 +109,7 @@
 
 				if (loadedObjs){
 					for (i = 0; i < loadedObjs.length; i++){
-						if (i == 0){
+						if (i == 0 || i == 1){
 			  				loadedObjs[i].rotation.y += 0.0025;
 			  			} else{
 			  				loadedObjs[i].rotation.y += 0.0015;
