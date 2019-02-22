@@ -48,7 +48,14 @@
 
 			  	loadedObjs[loadIndex] = object;
 
-			  	object.scale.set(.1, .1, .1);
+			  	
+
+			  	if (loadIndex == 1){
+			  		object.scale.set(.5, .5, .5);
+			  	} else{
+
+			  		object.scale.set(.1, .1, .1);
+			  	}
 
 			  	object.traverse( function ( child ) {
 					if ( child.isMesh ) {
