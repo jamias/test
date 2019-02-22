@@ -1,4 +1,4 @@
-<html>
+	<html>
 	<head>
 		<title>My first three.js app</title>
 		<style>
@@ -18,6 +18,8 @@
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
+			var group = new THREE.Group();
+
 			var controls = new THREE.OrbitControls( camera );
 			controls.enableDamping = true;
 
@@ -27,7 +29,9 @@
 
 			var light = new THREE.PointLight( 0xffcc00, 1, 100 );
 			light.position.set( -200, 0, 0 );
+			
 			scene.add( light );
+
 
 
 
@@ -74,7 +78,7 @@
 
   				} );
 
-			    scene.add(object);
+			    //scene.add(object);
 
 			    loadIndex++;
 			    loadNextFile();
@@ -101,7 +105,16 @@
 
 			cube.scale.set(.5, .5, .5);
 
-			scene.add( cube );
+			//scene.add( cube );
+
+			
+			group.add( cube );
+			group.add( loadedObjs[0] );
+			group.add( loadedObjs[1] );
+			group.add( loadedObjs[2] );
+
+			scene.add( group );
+
 
 			camera.position.z = 5;
 
