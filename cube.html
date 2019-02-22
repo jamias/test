@@ -108,7 +108,11 @@
 
 				if (loadedObjs){
 					for (i = 0; i < loadedObjs.length; i++){
-			  			loadedObjs[i].rotation.y += 0.0025;
+						if (i == 0){
+			  				loadedObjs[i].rotation.y += 0.0025;
+			  			} else{
+			  				loadedObjs[i].rotation.y += 0.0015;
+			  			}
 			  		}
 			  	}
 			   
