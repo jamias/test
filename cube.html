@@ -17,11 +17,11 @@
 		<script>
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			camera.position.z = 200;
+
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
-
-			var group = new THREE.Group();
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 			controls.enableDamping = true;
@@ -30,7 +30,7 @@
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
 
 
-			var pointLight = new THREE.PointLight( 0xffcc00, 1, 100 );
+			var pointLight = new THREE.PointLight( 0xffffff, 1, 100 );
 			pointLight.position.set( -200, 0, 0 );
 			
 
@@ -38,13 +38,8 @@
 			lightHolder.add(pointLight);
 			scene.add(lightHolder);
 			
-			
-			
-			
 
-
-
-
+			//var group = new THREE.Group();
 			var OBJLoaded;
 
 			
@@ -88,8 +83,8 @@
 
   				} );
 
-			    //scene.add(object);
-			    group.add( object);
+			    scene.add(object);
+			    //group.add( object);
 
 			    loadIndex++;
 			    loadNextFile();
@@ -103,35 +98,24 @@
 
 
 
-
-
-
-
-
 			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 			var cube = new THREE.Mesh( geometry, material );
-
 			cube.scale.set(.5, .5, .5);
 
-			//scene.add( cube );
+			scene.add( cube );
 
 			
-			group.add( cube );
-			//group.add( loadedObjs[0] );
-			//group.add( loadedObjs[1] );
-			//group.add( loadedObjs[2] );
-
-			scene.add( group );
+			//group.add( cube );
+			//scene.add( group );
 
 
-			camera.position.z = 5;
 
 
 			var animate = function () {
 				requestAnimationFrame( animate );
 
-				lightHolder.quaternion.copy(camera.quaternion);
+				
 
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
@@ -148,14 +132,12 @@
 			  		}
 			  	}
 			   
-				//controls.update();
-
+			  	lightHolder.quaternion.copy(camera.quaternion);
 				renderer.render( scene, camera );
 			};
 
-
-
 			animate();
+
 		</script>
 	</body>
 </html>
