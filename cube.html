@@ -18,6 +18,9 @@
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
 			var group = new THREE.Group();
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -27,7 +30,7 @@
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
 
 
-			var pointLight = new THREE.PointLight( 0xffcc00, 1, 100, 2 );
+			var pointLight = new THREE.PointLight( 0xffcc00, 1, 100 );
 			pointLight.position.set( -200, 0, 0 );
 			
 
@@ -103,9 +106,7 @@
 
 
 
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
+
 
 			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
