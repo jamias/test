@@ -27,7 +27,7 @@
 			scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
 
 
-			var light = new THREE.PointLight( 0xffcc00, 1, 100 );
+			var light = new THREE.PointLight( 0xffcc00, 1, 100, 2 );
 			//light.position.set( -200, 0, 0 );
 			light.position.copy(camera.position);
 			
@@ -40,7 +40,7 @@
 
 			
 			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
-			var matTriangle = new THREE.MeshBasicMaterial( { color: 0x333333} );
+			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x333333, side: THREE.DoubleSide } );
 			var matdisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide } );
 
 			var loadIndex = 0;
