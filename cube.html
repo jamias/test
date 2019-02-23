@@ -28,10 +28,16 @@
 
 
 			var light = new THREE.PointLight( 0xffcc00, 1, 100, 2 );
-			//light.position.set( -200, 0, 0 );
-			light.position.copy(camera.position);
+			light.position.set( -200, 0, 0 );
 			
-			scene.add( light );
+
+			var lightHolder = new THREE.Group();
+			lightHolder.add(light);
+			scene.add(lightHolder);
+			
+			lightHolder.quaternion.copy(camera.quaternion)
+			
+			
 
 
 
