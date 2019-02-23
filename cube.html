@@ -35,7 +35,7 @@
 			lightHolder.add(light);
 			scene.add(lightHolder);
 			
-			lightHolder.quaternion.copy(camera.quaternion)
+			
 			
 			
 
@@ -129,6 +129,8 @@
 
 			var animate = function () {
 				requestAnimationFrame( animate );
+
+				lightHolder.quaternion.copy(camera.quaternion)
 
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
