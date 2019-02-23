@@ -39,7 +39,7 @@
 			var OBJLoaded;
 
 			
-			var matWorld = new THREE.MeshBasicMaterial( { color: 0xffcc00} );
+			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x333333, side: THREE.DoubleSide } );
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide } );
 
@@ -94,6 +94,13 @@
 
 			//scene.add( group );
 
+			var sphereGeom = new THREE.SphereGeometry(200, 32, 24);
+			sphereGeom.faces.forEach(f => {
+				f.color.set(Math.random() * 0x777777 + 0x777777);
+			})
+			var sphere = new THREE.Mesh(sphereGeom, new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors}));
+			scene.add(sphere);
+
 
 			var animate = function () {
 				requestAnimationFrame( animate );
@@ -109,6 +116,8 @@
 			  			}
 			  		}
 			  	}
+
+			  	sphere.rotation.y += 0.0015;
 			   
 			  	lightHolder.quaternion.copy(camera.quaternion);
 				renderer.render( scene, camera );
