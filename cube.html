@@ -40,9 +40,21 @@
 			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide, transparent:true, alphaTest: 0.5 } );
-			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, transparent: true} );
+			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, transparent: true, alphaTest: 0.5, opacity: 1} );
 
-			var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
+			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
+			
+
+
+
+			var imgAlpha = document.createElement('img');
+        	var alphaMap = new THREE.Texture(imgAlpha);
+        	imgAlpha.onload = function()  {
+            alphaMap.needsUpdate = true;
+        	};
+        	imgAlpha.src = 'textures/globe_alphaMap.jpg'
+
+
 			matAlphaWorld.alphaMap = alphaMap;
 			matAlphaWorld.alphaMap.wrapS= THREE.ClampToEdgeWrapping;
 			matAlphaWorld.alphaMap.wrapT= THREE.ClampToEdgeWrapping;
