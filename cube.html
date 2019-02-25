@@ -185,7 +185,7 @@
 				if (loadedObjs){
 					for (i = 0; i < loadedObjs.length; i++){
 						if (i == 0 || i == 1 || i==2 ){
-			  				loadedObjs[i].rotation.y += 0.0025;
+			  				loadedObjs[i].child.rotation.y += 0.0025;
 			  			} else{
 			  				loadedObjs[i].rotation.y += 0.001;
 			  				loadedObjs[i].rotation.x += 0.001;
@@ -194,8 +194,7 @@
 			  	}
 			   
 			  	pointCloud.rotation.y += 0.001;
-			  	sph1.geometry.rotateY += 0.001;
-			  	lines.geometry.rotateY += 0.001;
+
 			  	lines.rotation.y += 0.001; 
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
