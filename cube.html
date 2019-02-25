@@ -111,17 +111,17 @@
 			//particles
 			function makeParticles() { 
  			
- 				var particleCount = 1800;
-				var pMat = new THREE.PointsMaterial({ color: 0xffffcc, size: 20 });
+ 				var particleCount = 800;
+				var pMat = new THREE.PointsMaterial({ color: 0xffffcc, size: 2 });
 				var geom = new THREE.Geometry();
 				
 				var x, y, z;
 				
 				for (var p = 0; p < particleCount; p++) {
 				
-				  x = randomRange(-1000,1000);
-				  y = randomRange(-1000,1000);
-				  z = randomRange(-1000,1000);
+				  x = randomRange(-600,600);
+				  y = randomRange(-600,600);
+				  z = randomRange(-600,600);
 
 				  geom.vertices.push(new THREE.Vector3(x, y, z));
 
@@ -151,7 +151,7 @@
 			  		}
 			  	}
 			   
-			  	pointCloud.rotation.y += 0.01;
+			  	pointCloud.rotation.y += 0.001;
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
   				renderer.render(scene, camera);
