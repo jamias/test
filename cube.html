@@ -59,18 +59,17 @@
 			matAlphaWorld.alphaMap.repeat.x = 1;
 			matAlphaWorld.alphaMap.repeat.y = 1;
 
-			var lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 } );
-			lineMaterial.alphaMap = alphaMap;
+			
 
 			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
 			
 
 			var sphGeom = new THREE.SphereGeometry( 5, 32, 32 );
-			var lines = new THREE.LineSegments( sphGeom, lineMaterial );
+			
 			
 			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
 			scene.add( sph1 );
-			scene.add( lines );
+			
 
 			
 
@@ -206,7 +205,8 @@
 			   
 			  	pointCloud.rotation.y += 0.001;
 
-			  	lines.rotation.y += 0.001; 
+			  	sph1.rotation.y += 0.001;
+			  	sph1.matAlphaWorld.alphaMap.rotation.y -= 0.001;
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
   				renderer.render(scene, camera);
