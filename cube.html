@@ -194,8 +194,8 @@
 			  	}
 			   
 			  	pointCloud.rotation.y += 0.001;
-			  	sph1.child.rotation.y += 0.001;
-			  	lines.child.rotation.y += 0.001;
+			  	sph1.mesh.rotation.y += 0.001;
+			  	lines.geometry.rotation.y += 0.001;
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
   				renderer.render(scene, camera);
