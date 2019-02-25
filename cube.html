@@ -109,16 +109,21 @@
 
 			//particles
 			function makeParticles() { 
- 
-				var pMat = new THREE.PointCloudMaterial({ color: 0xffffcc });
+ 			
+ 				var particleCount = 1800;
+				var pMat = new THREE.PointsMaterial({ color: 0xffffcc, size: 20 });
 				var geom = new THREE.Geometry();
+				
 				var x, y, z;
-				_.times(1000, function(n){
+				
+				for (var p = 0; p < particleCount; p++) {
+				
 				  x = randomRange(-1000,1000);
 				  y = randomRange(-1000,1000);
 				  z = randomRange(-1000,1000);
 
 				  geom.vertices.push(new THREE.Vector3(x, y, z));
+
 				});
 
 				var pointCloud = new THREE.PointCloud(geom, pMat);
