@@ -88,38 +88,49 @@
 
 			loadNextFile();
 
-			//particles
-			// create the particle variables
-			var particleCount = 500,
-			    particles = new THREE.Geometry(),
-			    pMaterial = new THREE.PointsMaterial({
-			      color: 0xFFFFFF,
-			      size: 20
-			    });
 
-			//particleSystem.sortParticles = true;
 
-			// now create the individual particles
-			for (var p = 0; p < particleCount; p++) {
-
-			  // create a particle with random
-			  // position values, -250 -> 250
-			  var pX = Math.random() * 500 - 250,
-			      pY = Math.random() * 500 - 250,
-			      pZ = Math.random() * 500 - 250,
-			      particle = new THREE.Vector3(pX, pY, pZ);
-
-			  // add it to the geometry
-			  //particles.vertices.push(particle);
+			//random range function
+			function randomRange(min, max) { 
+			return Math.random()*(max-min) + min; 
 			}
 
-			// create the particle system
-			var particleSystem = new THREE.Points(
-			    particles,
-			    pMaterial);
 
-			// add it to the scene
-			scene.add(particleSystem);
+			//particles
+			function makeParticles() { 
+ 
+				var particle, material; 
+			 
+				// we're gonna move from z position -1000 (far away) 
+				// to 1000 (where the camera is) and add a random particle at every pos. 
+				for ( var zpos= -1000; zpos < 1000; zpos+=20 ) {
+			 
+					// we make a particle material and pass through the 
+					// colour and custom particle render function we defined. 
+					material = new THREE.ParticleCanvasMaterial( { color: 0xffffff, program: particleRender } );
+					// make the particle
+					particle = new THREE.Particle(material);
+			 
+					// give it a random x and y position between -500 and 500
+					particle.position.x = randomRange(-500,500);
+					particle.position.y = randomRange(-500,500);
+			 
+					// set its z position
+					particle.position.z = zpos;
+			 
+					// scale it up a bit
+					particle.scale.x = particle.scale.y = 10;
+			 
+					// add it to the scene
+					scene.add( particle );
+			 
+					// and to the array of particles. 
+					particles.push(particle); 
+				}
+			 
+			}
+
+			makeParticles(); 
 
 
 			var animate = function () {
