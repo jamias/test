@@ -45,16 +45,20 @@
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide, transparent:true, alphaTest: 0.5 } );
 			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, side: THREE.DoubleSide, transparent: true} );
 
-
+/*
 			var imgAlpha = document.createElement('img');
         	var alphaMap = new THREE.Texture(imgAlpha);
         	imgAlpha.onload = function()  {
             alphaMap.needsUpdate = true;
         	};
         	imgAlpha.src = 'textures/globe_alphaMap.jpg'
+        	*/
 
 
-			matAlphaWorld.alphaMap = alphaMap;
+        	var aMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
+
+
+			matAlphaWorld.alphaMap = aMap;
 			matAlphaWorld.alphaMap.magFilter = THREE.NearestFilter;
 			matAlphaWorld.alphaMap.repeat.x = 1;
 			matAlphaWorld.alphaMap.repeat.y = 1;
