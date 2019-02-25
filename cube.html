@@ -47,20 +47,20 @@
 
 
 			var imgAlpha = document.createElement('img');
-        	var aMap = new THREE.Texture(imgAlpha);
+        	var alphaMap = new THREE.Texture(imgAlpha);
         	imgAlpha.onload = function()  {
-            aMap.needsUpdate = true;
+            alphaMap.needsUpdate = true;
         	};
         	imgAlpha.src = 'textures/globe_alphaMap.jpg'
 
 
-			matAlphaWorld.alphaMap = aMap;
+			matAlphaWorld.alphaMap = alphaMap;
 			matAlphaWorld.alphaMap.magFilter = THREE.NearestFilter;
 			matAlphaWorld.alphaMap.repeat.x = 1;
 			matAlphaWorld.alphaMap.repeat.y = 1;
 
 			var lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 } );
-			lineMaterial.alphaMap = aMap;
+			lineMaterial.alphaMap = alphaMap;
 
 			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
 			
