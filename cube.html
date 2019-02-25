@@ -40,7 +40,7 @@
 			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide } );
-			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, transparent: true, alphaTest: 0.3} );
+			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, transparent: true, alphaTest: 0.5} );
 
 			var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
 			matAlphaWorld.alphaMap = alphaMap;
