@@ -50,6 +50,7 @@
 
 			var loader = new THREE.FBXLoader();
 
+			var pointCloud;
 
 			function loadNextFile() {
 
@@ -126,7 +127,7 @@
 
 				}
 
-				var pointCloud = new THREE.Points(geom, pMat);
+				pointCloud = new THREE.Points(geom, pMat);
 				scene.add(pointCloud);
 			 
 			}
