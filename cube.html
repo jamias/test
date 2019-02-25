@@ -40,12 +40,18 @@
 			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide } );
+			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, transparent: true, alphaTest: 0.3} );
+
+			var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
+			matAlphaWorld.alphaMap = alphaMap;
+			matAlphaWorld.alphaMap.magFilter = THREE.NearestFilter;
+
 
 			var loadIndex = 0;
 			var animIndex = 0;
 
-			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx', 'models/geodesic.fbx'];
-			var mats = [matWorld, matDisp, matTriangle];
+			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx', 'models/geodesic.fbx', 'models/World_JJ_02.fbx' ];
+			var mats = [matWorld, matDisp, matTriangle, matAlphaWorld];
 			var loadedObjs =[];
 
 			var loader = new THREE.FBXLoader();
@@ -64,7 +70,13 @@
 
 			  	if (loadIndex == 2){
 			  		object.scale.set(.7, .7, .7);
-			  	} else{
+			  	} 
+
+			  	else if (loadIndex == 3) {
+			  		object.scale.set(.8, .8, .8);
+			  	}
+
+			  	else{
 
 			  		object.scale.set(.1, .1, .1);
 			  	}
