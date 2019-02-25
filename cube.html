@@ -66,11 +66,11 @@
 			
 
 			var sphGeom = new THREE.SphereGeometry( 5, 32, 32 );
-
+			var lines = new THREE.LineSegments( sphGeom, lineMaterial );
 			
 			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
 			scene.add( sph1 );
-			scene.add( new THREE.LineSegments( sphGeom, lineMaterial ) );
+			scene.add( lines );
 
 			
 
@@ -184,7 +184,7 @@
 
 				if (loadedObjs){
 					for (i = 0; i < loadedObjs.length; i++){
-						if (i == 0 || i == 1 || i==3 ){
+						if (i == 0 || i == 1 || i==2 ){
 			  				loadedObjs[i].rotation.y += 0.0025;
 			  			} else{
 			  				loadedObjs[i].rotation.y += 0.001;
@@ -194,6 +194,8 @@
 			  	}
 			   
 			  	pointCloud.rotation.y += 0.001;
+			  	sph1.child.rotation.y += 0.001;
+			  	lines.child.rotation.y += 0.001;
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
   				renderer.render(scene, camera);
