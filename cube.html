@@ -36,25 +36,6 @@
 
 			var OBJLoaded;
 
-			
-			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
-			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
-			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide, transparent:true, alphaTest: 0.5 } );
-			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, side: THREE.DoubleSide, transparent: true, alphaTest: 0.5, opacity: 1} );
-
-			var lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 alphaMap:alphaMap } );
-			
-
-			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
-			
-
-			var sphGeom = new THREE.SphereGeometry( 5, 32, 32 );
-
-			
-			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
-			scene.add( sph1 );
-			scene.add( new THREE.LineSegments( sphGeom, lineMaterial ) );
-
 			var imgAlpha = document.createElement('img');
         	var alphaMap = new THREE.Texture(imgAlpha);
         	imgAlpha.onload = function()  {
@@ -68,6 +49,27 @@
 			matAlphaWorld.alphaMap.repeat.x = 1;
 			matAlphaWorld.alphaMap.repeat.y = 1;
 
+
+			
+			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
+			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
+			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide, transparent:true, alphaTest: 0.5 } );
+			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, side: THREE.DoubleSide, transparent: true, alphaTest: 0.5, opacity: 1} );
+
+			var lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 alphaMap: alphaMap } );
+			
+
+			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
+			
+
+			var sphGeom = new THREE.SphereGeometry( 5, 32, 32 );
+
+			
+			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
+			scene.add( sph1 );
+			scene.add( new THREE.LineSegments( sphGeom, lineMaterial ) );
+
+			
 
 			var loadIndex = 0;
 			var animIndex = 0;
