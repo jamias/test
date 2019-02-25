@@ -42,6 +42,9 @@
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide, transparent:true, alphaTest: 0.5 } );
 			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, transparent: true, alphaTest: 0.5, opacity: 1} );
 
+			var lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 } );
+			
+
 			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
 			
 
@@ -50,6 +53,7 @@
 			
 			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
 			scene.add( sph1 );
+			scene.add( new THREE.LineSegments( sphGeom, lineMaterial ) );
 
 			var imgAlpha = document.createElement('img');
         	var alphaMap = new THREE.Texture(imgAlpha);
@@ -68,7 +72,11 @@
 			var loadIndex = 0;
 			var animIndex = 0;
 
-			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx', 'models/geodesic.fbx', 'models/World_JJ_02.fbx' ];
+			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx', 'models/World_JJ_02.fbx' ];
+
+			//'models/geodesic.fbx'
+
+
 			var mats = [matWorld, matDisp, matTriangle, matAlphaWorld];
 			var loadedObjs =[];
 
@@ -86,11 +94,7 @@
 
 			  	
 
-			  	if (loadIndex == 2){
-			  		object.scale.set(.7, .7, .7);
-			  	} 
-
-			  	if (loadIndex == 3) {
+			  	if (loadIndex == 2) {
 			  		object.scale.set(.12, .12, .12);
 			  	}
 
