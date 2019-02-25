@@ -196,6 +196,7 @@
 			  	pointCloud.rotation.y += 0.001;
 			  	sph1.geometry.rotateY += 0.001;
 			  	lines.geometry.rotateY += 0.001;
+			  	lines.rotation.y += 0.001; 
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
   				renderer.render(scene, camera);
