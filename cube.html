@@ -45,7 +45,11 @@
 			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
 			
 
+			var sphGeom = new THREE.SphereGeometry( 5, 32, 32 );
 
+			
+			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
+			scene.add( sph1 );
 
 			var imgAlpha = document.createElement('img');
         	var alphaMap = new THREE.Texture(imgAlpha);
@@ -56,8 +60,6 @@
 
 
 			matAlphaWorld.alphaMap = alphaMap;
-			matAlphaWorld.alphaMap.wrapS= THREE.ClampToEdgeWrapping;
-			matAlphaWorld.alphaMap.wrapT= THREE.ClampToEdgeWrapping;
 			matAlphaWorld.alphaMap.magFilter = THREE.NearestFilter;
 			matAlphaWorld.alphaMap.repeat.x = 1;
 			matAlphaWorld.alphaMap.repeat.y = 1;
