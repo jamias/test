@@ -180,6 +180,16 @@
 			makeParticles(); 
 
 
+
+			composer = new THREE.EffectComposer( renderer );
+        	composer.addPass( new THREE.RenderPass( scene, camera ) );
+
+        	var effect = new THREE.FilmPass( 0.35, 0.025, 648, false );
+        	// var effect = new THREE.FilmPass( 0.6, 0.5, 900, false );// black screen on mac
+        	composer.addPass( effect );
+
+
+
 			var animate = function () {
 				requestAnimationFrame( animate );
 
