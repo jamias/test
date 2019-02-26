@@ -25,7 +25,7 @@
 			controls.enableDamping = true;
 
 
-			var pointLight = new THREE.PointLight(0xffffff, 2, 200);
+			var pointLight = new THREE.PointLight(0xffffff, 1, 200);
 			pointLight.position.set(150, 50, 76);
 			var lightHolder = new THREE.Group();
 			lightHolder.add(pointLight);
@@ -308,7 +308,7 @@
 		    // !!! TEST
 
 		    /*
-		    
+
 		    var total = _geometry.vertices.length*3;
 		    var positions = new Float32Array( total );
 		    var colors = new Float32Array( total );
