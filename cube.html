@@ -293,7 +293,8 @@
 
         	// XRAY EARTH
 		    var _geometry = new THREE.SphereGeometry( radius*1.1, 66, 44 );
-		    
+		    var map;
+
 		    var _material = new THREE.XRayMaterial({
 		        map: new THREE.TextureLoader().load( "textures/clouds.jpg" ),
 		        alphaProportion: .5,
@@ -301,6 +302,8 @@
 		        opacity: 1,
 		        gridOffsetSpeed: .6
 		    });
+
+
 		    
 		    
 		    var clouds_mesh = new THREE.Mesh(_geometry, _material);
@@ -385,7 +388,7 @@
 			   
 			  	pointCloud.rotation.y += 0.001;
 
-			  	clouds_mesh._material.t.offset.y = time*0.0015;
+			  	clouds_mesh._material.map.offset.y = time*0.0015;
 			  
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
