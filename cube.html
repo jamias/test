@@ -249,15 +249,6 @@
 			return Math.random()*(max-min) + min; 
 			}
 
-/*
-			function particleRender( context ) {
- 				// we get passed a reference to the canvas context
-				context.beginPath();
-				// and we just have to draw our shape at 0,0 - in this
-				// case an arc from 0 to 2Pi radians or 360º - a full circle!
-				context.arc( 0, 0, 1, 0,  Math.PI * 2, true );
-				context.fill();
-			};*/
 
 
 
@@ -314,11 +305,8 @@
 		    clouds_mesh.matrixAutoUpdate = false;
 		    scene.add( clouds_mesh );
 
-
-		    clouds_mesh.traverse( function ( child ) {
-					console.log('cloudsMesh '+ typeof child);
-						
-    				});
+		    
+		   
 
 
 		    
@@ -327,7 +315,7 @@
 		    /*
 
 		    var total = _geometry.vertices.length*3;
-		    var positions = new Float32Array( total );
+		    var positions = new Float32Array( total ); 
 		    var colors = new Float32Array( total );
 		    var alphas = new Float32Array( total );
 		    var color = new THREE.Color( 0xffffff );
@@ -398,7 +386,7 @@
 			  	pointCloud.rotation.y += 0.001;
 
 			  	//clouds_mesh.material.map.offset.y = time*0.0015;
-			  	
+			  	clouds_mesh._material.uniforms.map.offset.y += .001; 
 			  	
   				
 
