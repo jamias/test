@@ -121,7 +121,6 @@
 
 			setInterval(function(){
 				uniforms.gridOffset.value += params.gridOffsetSpeed || 1;
-				uniforms.uTex.offset.y += .001;
 				// m.needsUpdate = true;
 			}, 40 );
 
@@ -386,7 +385,7 @@
 			   
 			  	pointCloud.rotation.y += 0.001;
 
-			  	//clouds_mesh._material.uTex.offset.y = time*0.0015;
+			  	clouds_mesh._material.t.offset.y = time*0.0015;
 			  
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
