@@ -305,7 +305,10 @@
 		    
 		    var clouds_mesh = new THREE.Mesh(_geometry, _material);
 		    clouds_mesh.matrixAutoUpdate = false;
-		    scene.add( clouds_mesh );
+
+		    var cloudGroup = new THREE.Group();
+		    cloudGroup.add(clouds_mesh);
+		    scene.add( cloudGroup );
 		    
 		    // !!! TEST
 
@@ -382,7 +385,7 @@
 			   
 			  	pointCloud.rotation.y += 0.001;
 
-			  	clouds_mesh.rotation.y += 0.001;
+			  	cloudGroup.rotation.y += 0.001;
 			  
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
