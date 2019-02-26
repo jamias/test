@@ -39,6 +39,147 @@
 		
 
 
+			THREE.AlphaColorShader = {
+
+			uniforms: {
+
+				color: { value: new THREE.Color( 0xffffff ) },
+				fogType: { value: 1 },
+				fogNear: { value: 10.0 },
+				fogFar: { value: 30.0 }
+			},
+
+			vertexShader: [
+				"attribute float alpha;",
+			    "varying float vAlpha;",
+			    "void main() {",
+			        "vAlpha = alpha;",
+			        "vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );",
+			        "gl_PointSize = 4.0;",
+			        "gl_Position = projectionMatrix * mvPosition;",
+			    "}",
+
+			].join( "\n" ),
+
+			fragmentShader: [
+				// "uniform vec3 color;",
+		  //   	"varying float vAlpha;",
+		  //   	"void main() {",
+
+		  //       	"gl_FragColor = vec4( color, vAlpha * ( gl_FragCoord.z ) );",
+
+
+		  //   	"}"
+
+		  		"uniform vec3 color;",
+		  		"uniform int fogType;",
+				"uniform float fogNear;",
+				"uniform float fogFar;",
+
+		  		"varying float vAlpha;",
+
+		  		"void main() {",
+				  	// vec4 texture = texture2D( map, vUV );
+					// if ( texture.a < alphaTest ) discard;
+					// gl_FragColor = vec4( color * texture.xyz, texture.a * opacity );
+					
+					"vec3 fogColor = vec3(0,0,0);",
+
+					"gl_FragColor = vec4( color, vAlpha * ( gl_FragCoord.z ) );",
+					"if ( fogType > 0 ) {",
+						"float depth = gl_FragCoord.z / gl_FragCoord.w;",
+						"float fogFactor = 0.0;",
+						"if ( fogType == 1 ) {",
+							"fogFactor = smoothstep( fogNear, fogFar, depth );",
+						"} else {",
+							// "const float LOG2 = 1.442695;",
+							// "float fogFactor = exp2( - fogDensity * fogDensity * depth * depth * LOG2 );",
+							// "fogFactor = 1.0 - clamp( fogFactor, 0.0, 1.0 );",
+						"}",
+						"gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );",
+					"}",
+				"}"
+
+			].join( "\n" ),
+
+			transparent: true
+
+		};
+
+
+		THREE.XRayMaterial = function( params ){
+
+		var uniforms = {
+			uTex: { type:"t", value: params.map || new THREE.Texture() },
+			offsetRepeat: { value: new THREE.Vector4( 0, 0, 1, 1 ) },
+			alphaProportion: { type: "1f", value: params.alphaProportion || 0.5 },
+			diffuse: { value: params.color || new THREE.Color( 0xffffff ) },
+			opacity: { value: params.opacity || 1 },
+			gridOffset: { value: 0 }
+		}
+
+		setInterval(function(){
+			uniforms.gridOffset.value += params.gridOffsetSpeed || 1;
+			// m.needsUpdate = true;
+		}, 40 );
+
+		var m = new THREE.ShaderMaterial( {
+
+			uniforms: uniforms,
+
+			// attributes: {
+			// 	vertexOpacity: { value: [] }
+			// },
+			vertexShader:
+				"\
+				varying float _alpha;\
+				varying vec2 vUv;\
+				uniform vec4 offsetRepeat;\
+				uniform float alphaProportion;\
+				\
+			    void main() {\
+					gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\
+					vUv = uv * offsetRepeat.zw + offsetRepeat.xy;\
+					\
+					vec4 worldPosition = modelMatrix * vec4( vec3( position ), 1.0 );\
+					vec3 cameraToVertex = normalize( cameraPosition - worldPosition.xyz);\
+					_alpha = 1.0 - max( 0.0, dot( normal, cameraToVertex ) );\
+					_alpha = max( 0.0, (_alpha - alphaProportion) / (1.0 - alphaProportion) );\
+			    }"
+			,
+			//alpha = alphaProportion + (alpha - 0.0) * (1.0 - alphaProportion) / (1.0 - 0.0);\
+
+			fragmentShader:
+		  		
+		  		"uniform sampler2D uTex;\
+		  		uniform vec3 diffuse;\
+		  		uniform float opacity;\
+		  		uniform float gridOffset;\
+		  		\
+				varying float _alpha;\
+				varying vec2 vUv;\
+		  		\
+		  		void main() {\
+					vec4 texColor = texture2D( uTex, vUv );\
+					float _a = _alpha * opacity;\
+					if( _a <= 0.0 ) discard;\
+					_a = _a * ( sin( vUv.y * 2000.0 + gridOffset ) * .5 + .5 );\
+					gl_FragColor = vec4( texColor.rgb * diffuse, _a );\
+				\
+				}"
+			,
+			//if ( alpha < .5 ) discard;\
+
+			transparent: true,
+			blending: THREE.AdditiveBlending,
+			depthTest: false
+		} );
+
+		return m;
+	};
+
+
+
 			
 			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
@@ -180,13 +321,80 @@
 			makeParticles(); 
 
 
-
+/*
 			composer = new THREE.EffectComposer( renderer );
         	composer.addPass( new THREE.RenderPass( scene, camera ) );
 
         	var effect = new THREE.FilmPass( 0.35, 0.025, 648, false );
         	// var effect = new THREE.FilmPass( 0.6, 0.5, 900, false );// black screen on mac
-        	composer.addPass( effect );
+        	composer.addPass( effect );*/
+
+
+
+        	// XRAY EARTH
+		    var _geometry = new THREE.SphereGeometry( radius*1.1, 66, 44 );
+		    
+		    var _material = new THREE.XRayMaterial({
+		        map: this.textureLoader.load( "textures/clouds.jpg" ),
+		        alphaProportion: .5,
+		        color: new THREE.Color( 0xfb2f2c5 ),
+		        opacity: 1,
+		        gridOffsetSpeed: .6
+		    });
+		    
+		    // var _material = new THREE.MeshBasicMaterial();
+		    // _material.map = this.textureLoader.load( PlanetData.textures_path+"clouds.jpg" );
+		    var clouds_mesh = new THREE.Mesh(_geometry, _material);
+		    clouds_mesh.matrixAutoUpdate = false;
+		    scene.add( clouds_mesh );
+		    
+		    // !!! TEST
+
+		    var total = _geometry.vertices.length*3;
+		    var positions = new Float32Array( total );
+		    var colors = new Float32Array( total );
+		    var alphas = new Float32Array( total );
+		    var color = new THREE.Color( 0xffffff );
+
+		    for (var i = 0; i < _geometry.vertices.length; i++) {
+		        var v = _geometry.vertices[i];
+		        var ii = i*3;
+		        positions[ii] = v.x;
+		        positions[ii+1] = v.y;
+		        positions[ii+2] = v.z;
+		        colors[ii] = color.r ;
+		        colors[ii+1] = color.g ;
+		        colors[ii+2] = color.b ;
+		        alphas[ Math.floor(ii/3) ] = Math.random()*.3+.5;
+		    };
+		    
+		    
+		    
+		    var geometry = new THREE.BufferGeometry();
+		    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+		    geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+		    geometry.addAttribute( 'alpha', new THREE.BufferAttribute( alphas, 1 ) );
+		    geometry.computeBoundingSphere();
+
+
+		    var shaderMaterial = new THREE.ShaderMaterial( THREE.AlphaColorShader );
+		    // console.log("shaderMaterial: ", shaderMaterial);
+		    shaderMaterial.depthWrite = false;
+		    shaderMaterial.uniforms.fogNear.value = 10.0;
+		    shaderMaterial.uniforms.fogFar.value = 20.0;
+
+		    // var material = new THREE.PointsMaterial( { size: .05, vertexColors: THREE.VertexColors } );
+		    // console.log("THREE.PointsMaterial: ", THREE.PointsMaterial);
+		    // points = new THREE.Points( geometry, shaderMaterial );
+		    //points.matrixAutoUpdate = false;
+		    //this.grid_shpere.add( points );
+
+		    // geometry2.addAttribute( 'position', new THREE.BufferAttribute( positions2, 3 ) );
+		    // geometry2.addAttribute( 'color', new THREE.BufferAttribute( colors2, 3 ) );
+		    // geometry2.computeBoundingSphere();
+		    // var material = new THREE.PointsMaterial( { size: .2, vertexColors: THREE.VertexColors } );
+		    // var points2 = new THREE.Points( geometry2, material );
+		    // this.container.add( points2 );
 
 
 
