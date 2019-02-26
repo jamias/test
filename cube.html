@@ -38,7 +38,7 @@
 
 		
 			//Alpha Shader
-			/*
+			
 			THREE.AlphaColorShader = {
 
 			uniforms: {
@@ -104,7 +104,7 @@
 
 			transparent: true
 
-		};*/
+		};
 
 
 		//XRay Shader
@@ -282,6 +282,16 @@
         	var radius = 22;
 
 
+
+        	 // var _material = new THREE.MeshBasicMaterial({
+	        // color: 0xffffff, wireframe: true, transparent: true, opacity: .15
+		    // });
+		    // _material.depthWrite = false;
+		    // this.grid_shpere = new THREE.Mesh(_geometry, _material);
+		    var grid_sphere = new THREE.Object3D();
+		    // this.grid_shpere.matrixAutoUpdate = false;
+		    // this.container.add( this.grid_shpere );
+
         	// XRAY EARTH
 		    var _geometry = new THREE.SphereGeometry( radius*1.1, 66, 44 );
 		    
@@ -332,9 +342,7 @@
 		        alphas[ Math.floor(ii/3) ] = Math.random()*.3+.5;
 		    };
 		    
-/*
-		    
-		    
+
 		    var geometry = new THREE.BufferGeometry();
 		    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 		    geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
@@ -342,12 +350,24 @@
 		    geometry.computeBoundingSphere();
 
 
-		    
 		    var shaderMaterial = new THREE.ShaderMaterial( THREE.AlphaColorShader );
 		    // console.log("shaderMaterial: ", shaderMaterial);
 		    shaderMaterial.depthWrite = false;
 		    shaderMaterial.uniforms.fogNear.value = 10.0;
-		    shaderMaterial.uniforms.fogFar.value = 20.0;*/
+		    shaderMaterial.uniforms.fogFar.value = 20.0;
+
+		    // var material = new THREE.PointsMaterial( { size: .05, vertexColors: THREE.VertexColors } );
+		    // console.log("THREE.PointsMaterial: ", THREE.PointsMaterial);
+		    var points = new THREE.Points( geometry, shaderMaterial );
+		    points.matrixAutoUpdate = false;
+		    this.grid_sphere.add( points );
+
+		    // geometry2.addAttribute( 'position', new THREE.BufferAttribute( positions2, 3 ) );
+		    // geometry2.addAttribute( 'color', new THREE.BufferAttribute( colors2, 3 ) );
+		    // geometry2.computeBoundingSphere();
+		    // var material = new THREE.PointsMaterial( { size: .2, vertexColors: THREE.VertexColors } );
+		    // var points2 = new THREE.Points( geometry2, material );
+		    // this.container.add( points2 );
 
 
 
@@ -387,7 +407,7 @@
 
 			  	//clouds_mesh.material.uniforms.uTex.value.offset.y += .001; 
 			  
-
+			  	grid_sphere.rotation.y += 0.001;
 			  
 
 			  	lightHolder.quaternion.copy(camera.quaternion);
