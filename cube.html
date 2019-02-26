@@ -295,7 +295,7 @@
 		    var _material = new THREE.XRayMaterial({
 		        map: new THREE.TextureLoader().load( "textures/clouds.jpg" ),
 		        alphaProportion: .5,
-		        color: new THREE.Color( 0xfb2f2c5 ),
+		        color: new THREE.Color( 0xffcc00 ),
 		        opacity: 1,
 		        gridOffsetSpeed: .6
 		    });
@@ -307,6 +307,8 @@
 		    
 		    // !!! TEST
 
+		    /*
+		    
 		    var total = _geometry.vertices.length*3;
 		    var positions = new Float32Array( total );
 		    var colors = new Float32Array( total );
@@ -325,8 +327,8 @@
 		        alphas[ Math.floor(ii/3) ] = Math.random()*.3+.5;
 		    };
 		    
+
 		    
-		    /*
 		    
 		    var geometry = new THREE.BufferGeometry();
 		    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
