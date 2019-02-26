@@ -23,6 +23,8 @@
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 			controls.enableDamping = true;
+			controls.autoRotate = true;
+    		controls.autoRotateSpeed = .002*3;
 
 
 			var pointLight = new THREE.PointLight(0xffffff, 1, 200);
@@ -116,7 +118,7 @@
 				alphaProportion: { type: "1f", value: params.alphaProportion || 0.5 },
 				diffuse: { value: params.color || new THREE.Color( 0xffffff ) },
 				opacity: { value: params.opacity || 1 },
-				gridOffset: { value: 0.001 }
+				gridOffset: { value: 0 }
 			}
 
 			setInterval(function(){
