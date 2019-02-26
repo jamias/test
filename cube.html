@@ -184,49 +184,20 @@
 			var matWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00} );
 			var matTriangle = new THREE.MeshLambertMaterial( { color: 0x111111, side: THREE.DoubleSide } );
 			var matDisp = new THREE.MeshLambertMaterial( { color: 0x222222, side: THREE.DoubleSide, transparent:true, alphaTest: 0.5 } );
-			var matAlphaWorld = new THREE.MeshStandardMaterial( { color: 0xffcc00, side: THREE.DoubleSide, transparent: true} );
-
-/*
-			var imgAlpha = document.createElement('img');
-        	var alphaMap = new THREE.Texture(imgAlpha);
-        	imgAlpha.onload = function()  {
-            alphaMap.needsUpdate = true;
-        	};
-        	imgAlpha.src = 'textures/globe_alphaMap.jpg'
-        	*/
-
-
-        	var aMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
-
-
-			matAlphaWorld.alphaMap = aMap;
-			matAlphaWorld.alphaMap.magFilter = THREE.NearestFilter;
-			matAlphaWorld.alphaMap.repeat.x = 1;
-			matAlphaWorld.alphaMap.repeat.y = 1;
-
 			
 
-			//var alphaMap = new THREE.TextureLoader().load('textures/globe_alphaMap.jpg');
 			
-
-			var sphGeom = new THREE.SphereGeometry( 5, 32, 32 );
-			
-			
-			var sph1 = new THREE.Mesh( sphGeom, matAlphaWorld );
-			scene.add( sph1 );
-			
-
 			
 
 			var loadIndex = 0;
 			var animIndex = 0;
 
-			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx', 'models/World_JJ_02.fbx' ];
+			var files = ['models/World_JJ_02.fbx', 'models/displace_map.fbx' ];
 
 			//'models/geodesic.fbx'
 
 
-			var mats = [matWorld, matDisp, matAlphaWorld];
+			var mats = [matWorld, matDisp];
 			var loadedObjs =[];
 
 			var loader = new THREE.FBXLoader();
@@ -243,14 +214,8 @@
 
 			  	
 
-			  	if (loadIndex == 2) {
-			  		object.scale.set(.12, .12, .12);
-			  	}
-
-			  	else{
-
-			  		object.scale.set(.1, .1, .1);
-			  	}
+			  	object.scale.set(.1, .1, .1);
+			  	
 
 			  	object.traverse( function ( child ) {
 					if ( child.isMesh ) {
@@ -298,7 +263,7 @@
 			function makeParticles() { 
  			
  				var particleCount = 800;
-				var pMat = new THREE.PointsMaterial({ color: 0xffffcc, size: 2 });
+				var pMat = new THREE.PointsMaterial({ color: 0xffffcc, size: 1 });
 				var geom = new THREE.Geometry();
 				
 				var x, y, z;
@@ -321,15 +286,7 @@
 			makeParticles(); 
 
 
-/*
-			composer = new THREE.EffectComposer( renderer );
-        	composer.addPass( new THREE.RenderPass( scene, camera ) );
-
-        	var effect = new THREE.FilmPass( 0.35, 0.025, 648, false );
-        	// var effect = new THREE.FilmPass( 0.6, 0.5, 900, false );// black screen on mac
-        	composer.addPass( effect );*/
-
-        	var radius = 40;
+        	var radius = 30;
 
 
         	// XRAY EARTH
@@ -343,8 +300,7 @@
 		        gridOffsetSpeed: .6
 		    });
 		    
-		    // var _material = new THREE.MeshBasicMaterial();
-		    // _material.map = this.textureLoader.load( PlanetData.textures_path+"clouds.jpg" );
+		    
 		    var clouds_mesh = new THREE.Mesh(_geometry, _material);
 		    clouds_mesh.matrixAutoUpdate = false;
 		    scene.add( clouds_mesh );
@@ -384,18 +340,6 @@
 		    shaderMaterial.uniforms.fogNear.value = 10.0;
 		    shaderMaterial.uniforms.fogFar.value = 20.0;
 
-		    // var material = new THREE.PointsMaterial( { size: .05, vertexColors: THREE.VertexColors } );
-		    // console.log("THREE.PointsMaterial: ", THREE.PointsMaterial);
-		    // points = new THREE.Points( geometry, shaderMaterial );
-		    //points.matrixAutoUpdate = false;
-		    //this.grid_shpere.add( points );
-
-		    // geometry2.addAttribute( 'position', new THREE.BufferAttribute( positions2, 3 ) );
-		    // geometry2.addAttribute( 'color', new THREE.BufferAttribute( colors2, 3 ) );
-		    // geometry2.computeBoundingSphere();
-		    // var material = new THREE.PointsMaterial( { size: .2, vertexColors: THREE.VertexColors } );
-		    // var points2 = new THREE.Points( geometry2, material );
-		    // this.container.add( points2 );
 
 
 
