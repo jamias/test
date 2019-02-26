@@ -24,8 +24,10 @@
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 			controls.enabled = true;
 			controls.enableDamping = true;
+			controls.dampingFactor = .05;
 			controls.autoRotate = true;
-    		controls.autoRotateSpeed = 1;
+    		controls.autoRotateSpeed = 0.25;
+
 
 
 			var pointLight = new THREE.PointLight(0xffffff, 1, 200);
