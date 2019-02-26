@@ -37,8 +37,8 @@
 			var OBJLoaded;
 
 		
-
-
+			//Alpha Shader
+			/*
 			THREE.AlphaColorShader = {
 
 			uniforms: {
@@ -104,9 +104,10 @@
 
 			transparent: true
 
-		};
+		};*/
 
 
+		//XRay Shader
 		THREE.XRayMaterial = function( params ){
 
 		var uniforms = {
@@ -122,6 +123,7 @@
 			uniforms.gridOffset.value += params.gridOffsetSpeed || 1;
 			// m.needsUpdate = true;
 		}, 40 );
+
 
 		var m = new THREE.ShaderMaterial( {
 
