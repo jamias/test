@@ -336,7 +336,7 @@
 		    var _geometry = new THREE.SphereGeometry( radius*1.1, 66, 44 );
 		    
 		    var _material = new THREE.XRayMaterial({
-		        map: this.textureLoader.load( "textures/clouds.jpg" ),
+		        map: new THREE.TextureLoader().load( "textures/clouds.jpg" ),
 		        alphaProportion: .5,
 		        color: new THREE.Color( 0xfb2f2c5 ),
 		        opacity: 1,
