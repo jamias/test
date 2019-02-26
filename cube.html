@@ -313,6 +313,14 @@
 		    var clouds_mesh = new THREE.Mesh(_geometry, _material);
 		    clouds_mesh.matrixAutoUpdate = false;
 		    scene.add( clouds_mesh );
+
+
+		    clouds_mesh.traverse( function ( child ) {
+					console.log('cloudsMesh '+ typeof child);
+						
+    				});
+
+
 		    
 		    // !!! TEST
 
@@ -391,11 +399,7 @@
 
 			  	//clouds_mesh.material.map.offset.y = time*0.0015;
 			  	
-			  	clouds_mesh.traverse( function ( child ) {
-					console.log('cloudsMesh '+ child);
-						
-    				});
-
+			  	
   				
 
 			  	//console.log('clouds_mesh'+ clouds_mesh.)
