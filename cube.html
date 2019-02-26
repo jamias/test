@@ -22,6 +22,7 @@
 			document.body.appendChild(renderer.domElement);
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
+			controls.enabled = true;
 			controls.enableDamping = true;
 			controls.autoRotate = true;
     		controls.autoRotateSpeed = .002*3;
