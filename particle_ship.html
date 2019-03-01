@@ -52,14 +52,14 @@
             // get the main cow geometry from the loaded object hierarchy
             var geometry = cow.children[1].geometry;
             // use a material for some styling
-            var psMat = new THREE.PointCloudMaterial(geometry);
+            var psMat = new THREE.PointsMaterial(geometry);
             //psMat.map = THREE.ImageUtils.loadTexture("../assets/textures/ps_smoke.png");
             psMat.color = new THREE.Color(0x5555ff);
             psMat.transparent = true;
             psMat.size = 0.2;
             psMat.blending = THREE.AdditiveBlending;
             // Create a new particle system based on the provided geometry
-            ps = new THREE.PointCloud(geometry, psMat);
+            ps = new THREE.Points(geometry, psMat);
             ps.sizeAttenuation = true;
             ps.sortParticles = true;
             // add the particle system to the scene
