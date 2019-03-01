@@ -50,7 +50,15 @@
         var loader = new THREE.FBXLoader();
         loader.load("models/displace_map.fbx", function (cow) {
             // get the main cow geometry from the loaded object hierarchy
+
+            const positions = new Float32Array(PARTICLE_COUNT * 3);
+			
+
             var geometry = cow.children[1].geometry;
+
+            geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            
             // use a material for some styling
             var psMat = new THREE.PointsMaterial(geometry);
             //psMat.map = THREE.ImageUtils.loadTexture("../assets/textures/ps_smoke.png");
