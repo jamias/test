@@ -40,50 +40,52 @@
 			
 
 
-
-			
 			var ps;
 			
 
 
-			 function setupParticleSystem() {
-        var loader = new THREE.FBXLoader();
-        loader.load("models/displace_map.fbx", function (cow) {
-            // get the main cow geometry from the loaded object hierarchy
+			function setupParticleSystem() {
+	        	var loader = new THREE.FBXLoader();
+	        	loader.load("models/displace_map.fbx", function (obj) {
+	            // get the main obj geometry from the loaded object hierarchy
 
-            const positions = new Float32Array(PARTICLE_COUNT * 3);
-			
+	            const positions = new Float32Array(PARTICLE_COUNT * 3);
+				
 
-            var geometry = cow.children[1].geometry;
+	            var geometry = obj.children[1].geometry;
+	            geometry.vertices = obj.children[1].vertices;
 
-            geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-
-            // use a material for some styling
-            var psMat = new THREE.PointsMaterial(geometry);
-            psMat.map = THREE.ImageUtils.loadTexture("textures/dot.png");
-            psMat.color = new THREE.Color(0x5555ff);
-            psMat.transparent = true;
-            psMat.size = 0.2;
-            psMat.blending = THREE.AdditiveBlending;
-            // Create a new particle system based on the provided geometry
-            ps = new THREE.Points(geometry, psMat);
-            ps.sizeAttenuation = true;
-            ps.sortParticles = true;
-            // add the particle system to the scene
-            scene.add(ps);
-        });
-    }
+	            geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
 
 
+	            // use a material for some styling
+	            var psMat = new THREE.PointsMaterial(geometry);
+	            psMat.map = THREE.ImageUtils.loadTexture("textures/dot.png");
+	            psMat.color = new THREE.Color(0x5555ff);
+	            psMat.transparent = true;
+	            psMat.size = 0.2;
+	            psMat.blending = THREE.AdditiveBlending;
+
+	            // Create a new particle system based on the provided geometry
+	            ps = new THREE.Points(geometry, psMat);
+	            ps.sizeAttenuation = true;
+	            ps.sortParticles = true;
+
+	            // add the particle system to the scene
+	            scene.add(ps);
+	        	});
+	    	}
 
 
-    	setupParticleSystem()
 
 
-    		 var step = 0;
+    		setupParticleSystem()
+
+
+    		var step = 0;
 
 			render();
+
 
 			function render() {
 			  requestAnimationFrame(render);
