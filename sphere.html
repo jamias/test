@@ -38,7 +38,8 @@
 		      size: 1.5
 		   	});
 
-			var mats = [matWorld, matDisp];
+			//var mats = [matWorld, matDisp];
+
 			var loadedObjs =[];
 
 			var loader = new THREE.FBXLoader();
@@ -63,7 +64,7 @@
 
 		            // child.material.map = texture;
 
-		            var scale = 2;
+		            var scale = 1;
 
 		            $(child.geometry.vertices).each(function() {
 		               p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
