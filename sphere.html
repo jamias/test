@@ -69,6 +69,8 @@
 
 		            var scale = 1;
 		            child.material = mat2;
+		            console.log('child');
+
 		            $(child.geometry.vertices).each(function() {
 		               p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
 		               console.log('pushed vertices');
