@@ -38,6 +38,8 @@
 		      size: 1.5
 		   	});
 
+		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.5});
+
 			//var mats = [matWorld, matDisp];
 
 			var loadedObjs =[];
@@ -45,7 +47,7 @@
 
 			var loader = new THREE.FBXLoader();
 
-			var pc;
+			var p;
 
 			function loadNextFile() {
 
@@ -66,7 +68,7 @@
 		            // child.material.map = texture;
 
 		            var scale = 1;
-
+		            child.material = mat2;
 		            $(child.geometry.vertices).each(function() {
 		               p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
 		               console.log('pushed vertices');
@@ -80,8 +82,8 @@
 			    loadIndex++;
 			    loadNextFile();
 
-			});
-		}
+				});
+			}
 
 			loadNextFile();
 
