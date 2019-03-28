@@ -29,18 +29,70 @@
 			scene.add(lightHolder);
 			scene.add(new THREE.AmbientLight(0xffffff, .5));
 
-			var sphereGeom = new THREE.SphereGeometry(75, 32, 24);
-			sphereGeom.faces.forEach(f => {
-				f.color.set(Math.random() * 0x777777 + 0x777777);
-			})
-			var sphere = new THREE.Mesh(sphereGeom, new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors}));
-			scene.add(sphere);
+			var files = ['models/displace_map.fbx' ];
+
+			
+			var p_geom = new THREE.Geometry();
+		   	var p_material = new THREE.PointsMaterial({
+		      color: 0xFFFFFF,
+		      size: 1.5
+		   	});
+
+			var mats = [matWorld, matDisp];
+			var loadedObjs =[];
+
+			var loader = new THREE.FBXLoader();
+
+			var pc;
+
+			function loadNextFile() {
+
+			  if (loadIndex > files.length - 1) return;
+
+			  loader.load(files[loadIndex], function(object) {
+
+			  	loadedObjs[loadIndex] = object;
+
+			  	
+
+			  	object.scale.set(.1, .1, .1);
+
+				object.traverse( function ( child ) {
+
+		         if ( child instanceof THREE.Mesh ) {
+
+		            // child.material.map = texture;
+
+		            var scale = 2;
+
+		            $(child.geometry.vertices).each(function() {
+		               p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
+		            })
+		         }
+		      });
+
+				scene.add(p);
+
+			    loadIndex++;
+			    loadNextFile();
+
+			});
+		}
+
+			loadNextFile();
+
+			p = new THREE.Points(
+      			p_geom,
+      			p_material
+   			);
+
+
 
 			render();
 
 			function render() {
 			  requestAnimationFrame(render);
-			  sphere.rotation.x += 0.002;
+			  //sphere.rotation.x += 0.002;
 			  lightHolder.quaternion.copy(camera.quaternion);
 			  renderer.render(scene, camera);
 			}
