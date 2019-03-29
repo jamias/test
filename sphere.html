@@ -78,7 +78,7 @@
             			})
 
 			            console.log('pushed vertices');
-			            console.log('vertices: '+p_geom.vertices);
+			            console.log('vertices: '+ p_geom.vertices);
 			         }
 		      	});
 
@@ -93,14 +93,12 @@
 				});
 			}
 
+
+			p = new THREE.Points(p_geom, p_material);
+
+
+			
 			loadNextFile();
-
-			p = new THREE.Points(
-      			p_geom,
-      			p_material
-   			);
-
-
 
 			render();
 
