@@ -40,7 +40,7 @@
 		      size: 1.5
 		   	});
 
-		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.5});
+		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.2});
 
 			//var mats = [matWorld, matDisp];
 
@@ -67,6 +67,11 @@
 
 
 					if ( child.isMesh ) {
+
+
+
+						child.material = mat2
+						scene.add(object);
    
 					   const position = child.geometry.attributes.position;
 					   const vector = new THREE.Vector3();
