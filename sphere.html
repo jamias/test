@@ -65,7 +65,7 @@
 
 				object.traverse( function ( child ) {
 
-			        if ( child.isMesh ) {
+			        if ( child instanceof THREE.Mesh ) {
 
 			            // child.material.map = texture;
 
@@ -78,6 +78,7 @@
             			})
 
 			            console.log('pushed vertices');
+			            console.log('vertices: '+child.geometry.vertices);
 			         }
 		      	});
 
