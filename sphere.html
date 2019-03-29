@@ -53,7 +53,7 @@
 
 			function loadNextFile() {
 
-			  if (loadIndex > files.length - 1) return;
+			  //if (loadIndex > files.length - 1) return;
 
 			  loader.load(files[loadIndex], function(object) {
 
@@ -111,17 +111,17 @@
 		      	});
 
 				
-
+				p = new THREE.Points(p_geom, p_material);
 				scene.add(p);
 				//scene.add(object);
 
-			    loadIndex++;
-			    loadNextFile();
+			    //loadIndex++;
+			    //loadNextFile();
 
 				});
 			}
 
-			p = new THREE.Points(p_geom, p_material);
+			
 
 			loadNextFile();
 
