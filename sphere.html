@@ -23,6 +23,10 @@
 			document.body.appendChild(renderer.domElement);
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
+			controls.autoRotate = true;
+			controls.autoRotateSpeed = 1;
+			controls.enableDamping = true;
+
 
 			var pointLight = new THREE.PointLight(0xffffff, 10, 100);
 			pointLight.position.set(50, 50, 76);
@@ -138,6 +142,7 @@
 
 			function render() {
 			  requestAnimationFrame(render);
+			  controls.update();
 			  //sphere.rotation.x += 0.002;
 			  lightHolder.quaternion.copy(camera.quaternion);
 			  renderer.render(scene, camera);
