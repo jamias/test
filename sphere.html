@@ -65,11 +65,13 @@
 
 				object.traverse( function ( child ) {
 
-					console.log( child.geometry.isBufferGeometry );//test
+
 
 			        if ( child instanceof THREE.Mesh ) {
 
 			            // child.material.map = texture;
+
+			            console.log( child.geometry.isBufferGeometry );
 
 			            var scale = 1;
 			            child.material = mat2;
