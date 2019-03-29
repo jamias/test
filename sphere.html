@@ -66,7 +66,24 @@
 				object.traverse( function ( child ) {
 
 
+					if ( child.isMesh ) {
+   
+					   const position = child.geometry.attributes.position;
+					   const vector = new THREE.Vector3();
 
+					   for ( let i = 0, l = position.count; i < l; i ++ )
+
+					      vector.fromBufferAttribute( position, i );
+					      vector.applyMatrix4( child.matrixWorld );
+					      console.log(vector);
+					   
+					   }
+
+					}
+
+
+
+					/*
 			        if ( child instanceof THREE.Mesh ) {
 
 			            // child.material.map = texture;
@@ -77,14 +94,19 @@
 			            child.material = mat2;
 			            console.log('child');
 
+			            
 			            $(child.geometry.vertices).each(function() {
                				p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
                				console.log('v');
             			})
 
+
+
+
+
 			            console.log('pushed vertices');
-			            //console.log('vertices: '+ p_geom.vertices);
-			         }
+			            
+			         }*/
 		      	});
 
 				
