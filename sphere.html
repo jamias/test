@@ -24,7 +24,7 @@
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
 			controls.autoRotate = true;
-			controls.autoRotateSpeed = 1;
+			controls.autoRotateSpeed = .5;
 			controls.enableDamping = true;
 
 
@@ -41,7 +41,7 @@
 			var p_geom = new THREE.Geometry();
 		   	var p_material = new THREE.PointsMaterial({
 		      color: 0xFFFFFF,
-		      size: 1.5
+		      size: 1
 		   	});
 
 		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.2});
@@ -83,7 +83,7 @@
 					   for ( let i = 0, l = position.count; i < l; i ++ ){
 
 					      vector.fromBufferAttribute( position, i );
-					      vector.applyMatrix4( child.matrixWorld );
+					      //vector.applyMatrix4( child.matrixWorld );
 					      //console.log(vector);
 					      p_geom.vertices.push(vector);
 					   
