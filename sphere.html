@@ -12,7 +12,7 @@
 		<script src="js/loaders/FBXLoader.js"></script>
 		<script src="js/libs/inflate.min.js"></script>
 		<script src="js/controls/OrbitControls.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 		<script>
 			var scene = new THREE.Scene();
@@ -23,6 +23,10 @@
 			document.body.appendChild(renderer.domElement);
 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
+			controls.autoRotate = true;
+			controls.autoRotateSpeed = .5;
+			controls.enableDamping = true;
+
 
 			var pointLight = new THREE.PointLight(0xffffff, 10, 100);
 			pointLight.position.set(50, 50, 76);
@@ -37,10 +41,10 @@
 			var p_geom = new THREE.Geometry();
 		   	var p_material = new THREE.PointsMaterial({
 		      color: 0xFFFFFF,
-		      size: 1.5
+		      size: 1
 		   	});
 
-		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.5});
+		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.2});
 
 			//var mats = [matWorld, matDisp];
 
@@ -53,7 +57,7 @@
 
 			function loadNextFile() {
 
-			  if (loadIndex > files.length - 1) return;
+			  //if (loadIndex > files.length - 1) return;
 
 			  loader.load(files[loadIndex], function(object) {
 
@@ -61,43 +65,78 @@
 
 			  	
 
-			  	object.scale.set(.1, .1, .1);
+			  	object.scale.set(.2, .2, .2);
 
 				object.traverse( function ( child ) {
 
-			        if ( child.isMesh ) {
+
+					if ( child.isMesh ) {
+
+
+
+						child.material = mat2
+						scene.add(object);
+   
+					   const position = child.geometry.attributes.position;
+					   const vector = new THREE.Vector3();
+
+					   for ( let i = 0, l = position.count; i < l; i ++ ){
+
+					      vector.fromBufferAttribute( position, i );
+					      //vector.applyMatrix4( child.matrixWorld );
+
+					      if (i<100){
+					     	console.log(vector);}
+					      p_geom.vertices.push(vector);
+					   
+					   }
+
+					}
+
+
+
+					/*
+			        if ( child instanceof THREE.Mesh ) {
 
 			            // child.material.map = texture;
+
+			            console.log( child.geometry.isBufferGeometry );
 
 			            var scale = 1;
 			            child.material = mat2;
 			            console.log('child');
 
+			            
 			            $(child.geometry.vertices).each(function() {
                				p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
+               				console.log('v');
             			})
 
+
+
+
+
 			            console.log('pushed vertices');
-			         }
+			            
+			         }*/
 		      	});
 
 				
-
+				p = new THREE.Points(p_geom, p_material);
 				scene.add(p);
 				//scene.add(object);
 
-			    loadIndex++;
-			    loadNextFile();
+			    //loadIndex++;
+			    //loadNextFile();
 
 				});
 			}
 
+			
+
 			loadNextFile();
 
-			p = new THREE.Points(
-      			p_geom,
-      			p_material
-   			);
+
 
 
 
@@ -105,6 +144,7 @@
 
 			function render() {
 			  requestAnimationFrame(render);
+			  controls.update();
 			  //sphere.rotation.x += 0.002;
 			  lightHolder.quaternion.copy(camera.quaternion);
 			  renderer.render(scene, camera);
