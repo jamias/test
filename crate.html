@@ -57,42 +57,27 @@
 
 
 			// Instantiate a loader
-			var loader = new THREE.GLTFLoader();
+			const loader = new GLTFLoader().setPath( 'models/gltf/' );
+						loader.load( 'gltf_test.gltf', function ( gltf ) {
 
-			// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-			//const dracoLoader = new DRACOLoader();
-			//dracoLoader.setDecoderPath( '/examples/js/libs/draco/' );
-			//loader.setDRACOLoader( dracoLoader );
+							gltf.scene.traverse( function ( child ) {
 
-			// Load a glTF resource
-			loader.load(
-				// resource URL
-				'./models/gltf/gltf_test.gltf',
-				// called when the resource is loaded
-				function ( gltf ) {
+								if ( child.isMesh ) {
 
-					scene.add( gltf.scene );
+									// TOFIX RoughnessMipmapper seems to be broken with WebGL 2.0
+									// roughnessMipmapper.generateMipmaps( child.material );
 
-					gltf.animations; // Array<THREE.AnimationClip>
-					gltf.scene; // THREE.Group
-					gltf.scenes; // Array<THREE.Group>
-					gltf.cameras; // Array<THREE.Camera>
-					gltf.asset; // Object
+								}
 
-				},
-				// called while loading is progressing
-				function ( xhr ) {
+							} );
 
-					console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+							scene.add( gltf.scene );
 
-				},
-				// called when loading has errors
-				function ( error ) {
+							//roughnessMipmapper.dispose();
 
-					console.log( 'An error happened' );
+							render();
 
-				}
-			);
+						} );
 
 
 
