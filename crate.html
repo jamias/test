@@ -17,47 +17,51 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 		<script>
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-			camera.position.set(0, 0, 200);
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			document.body.appendChild(renderer.domElement);
-
-			var controls = new THREE.OrbitControls(camera, renderer.domElement);
-			controls.autoRotate = true;
-			controls.autoRotateSpeed = .5;
-			controls.enableDamping = true;
-
-
-			var pointLight = new THREE.PointLight(0xffffff, 10, 100);
-			pointLight.position.set(50, 50, 76);
-			var lightHolder = new THREE.Group();
-			lightHolder.add(pointLight);
-			scene.add(lightHolder);
-			scene.add(new THREE.AmbientLight(0xffffff, .5));
-
-			var files = ['models/displace_map.fbx'];
-
 			
-			var p_geom = new THREE.Geometry();
-		   	var p_material = new THREE.PointsMaterial({
-		      color: 0xFFFFFF,
-		      size: 1
-		   	});
 
-		   	var mat2 = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.2});
+			import * as THREE from '../build/three.module.js';
 
-			//var mats = [matWorld, matDisp];
+			import { OrbitControls } from './jsm/controls/OrbitControls.js';
+			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+			import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+			import { RoughnessMipmapper } from './jsm/utils/RoughnessMipmapper.js';
 
-			var loadedObjs =[];
-			var loadIndex = 0;
+			let camera, scene, renderer;
 
-			var loader2 = new THREE.FBXLoader();
+			init();
+			render();
 
+			function init() {
 
-			// Instantiate a loader
-			const loader = new GLTFLoader().setPath( 'models/gltf/' );
+				const container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
+				camera.position.set( - 1.8, 0.6, 2.7 );
+
+				scene = new THREE.Scene();
+
+				new RGBELoader()
+					.setDataType( THREE.UnsignedByteType )
+					.setPath( 'textures/equirectangular/' )
+					.load( 'royal_esplanade_1k.hdr', function ( texture ) {
+
+						const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+
+						scene.background = envMap;
+						scene.environment = envMap;
+
+						texture.dispose();
+						pmremGenerator.dispose();
+
+						render();
+
+						// model
+
+						// use of RoughnessMipmapper is optional
+						const roughnessMipmapper = new RoughnessMipmapper( renderer );
+
+						const loader = new GLTFLoader().setPath( 'models/gltf/' );
 						loader.load( 'gltf_test.gltf', function ( gltf ) {
 
 							gltf.scene.traverse( function ( child ) {
@@ -73,111 +77,60 @@
 
 							scene.add( gltf.scene );
 
-							//roughnessMipmapper.dispose();
+							roughnessMipmapper.dispose();
 
 							render();
 
 						} );
 
+					} );
 
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 1;
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				container.appendChild( renderer.domElement );
 
+				const pmremGenerator = new THREE.PMREMGenerator( renderer );
+				pmremGenerator.compileEquirectangularShader();
 
-			var p;
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render ); // use if there is no animation loop
+				controls.minDistance = 2;
+				controls.maxDistance = 10;
+				controls.target.set( 0, 0, - 0.2 );
+				controls.update();
 
-			function loadNextFile() {
+				window.addEventListener( 'resize', onWindowResize, false );
 
-			  //if (loadIndex > files.length - 1) return;
-
-			  loader.load(files[loadIndex], function(object) {
-
-			  	//loadedObjs[loadIndex] = object;
-
-			  	
-
-			  	object.scale.set(.2, .2, .2);
-
-				object.traverse( function ( child ) {
-
-
-					if ( child.isMesh ) {
-
-
-
-						child.material = mat2
-						scene.add(object);
-   
-					   const position = child.geometry.attributes.position;
-					   const vector = new THREE.Vector3();
-
-					   for ( let i = 0, l = position.count; i < l; i ++ ){
-
-					      vector.fromBufferAttribute( position, i );
-					      //vector.applyMatrix4( child.matrixWorld );
-
-					      if (i<100){
-					     	console.log(vector);}
-					      p_geom.vertices.push(vector);
-					   
-					   }
-
-					}
-
-
-
-					/*
-			        if ( child instanceof THREE.Mesh ) {
-
-			            // child.material.map = texture;
-
-			            console.log( child.geometry.isBufferGeometry );
-
-			            var scale = 1;
-			            child.material = mat2;
-			            console.log('child');
-
-			            
-			            $(child.geometry.vertices).each(function() {
-               				p_geom.vertices.push(new THREE.Vector3(this.x * scale, this.y * scale, this.z * scale));
-               				console.log('v');
-            			})
-
-
-
-
-
-			            console.log('pushed vertices');
-			            
-			         }*/
-		      	});
-
-				
-				p = new THREE.Points(p_geom, p_material);
-				scene.add(p);
-				//scene.add(object);
-
-			    //loadIndex++;
-			    //loadNextFile();
-
-				});
 			}
 
-			
+			function onWindowResize() {
 
-			//loadNextFile();
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
 
+				renderer.setSize( window.innerWidth, window.innerHeight );
 
+				render();
 
+			}
 
-
-			render();
+			//
 
 			function render() {
-			  requestAnimationFrame(render);
-			  controls.update();
-			  //sphere.rotation.x += 0.002;
-			  lightHolder.quaternion.copy(camera.quaternion);
-			  renderer.render(scene, camera);
+
+				renderer.render( scene, camera );
+
 			}
+
+		
+
+
+
+
 
 		</script>
 	</body>
